@@ -14,7 +14,6 @@
 package org.apache.pekko.projection.slick
 
 import scala.language.existentials
-
 import org.apache.pekko
 import pekko.projection.TestTags
 import pekko.projection.slick.SlickOffsetStoreSpec.SlickSpecConfig
@@ -27,6 +26,7 @@ import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.containers.OracleContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.startupcheck.IsRunningStartupCheckStrategy
+import org.testcontainers.utility.DockerImageName
 
 object SlickContainerOffsetStoreSpec {
 
@@ -132,7 +132,7 @@ object SlickContainerOffsetStoreSpec {
     // otherwise we get ORA-01882: timezone region not found
     System.setProperty("oracle.jdbc.timezoneAsRegion", "false")
 
-    val container = initContainer(new OracleContainer("gvenzl/oracle-xe:21.3.0-slim-faststart"))
+    val container = initContainer(new OracleContainer("gvenzl/oracle-xe:21-slim-faststart"))
 
     override def config: Config =
       super.config.withFallback(ConfigFactory.parseString("""
